@@ -31,6 +31,11 @@ var constructor = (function() {
         _.defaults(options, this.getDefaultOptions(options.type));
 
         var notification = {};
+        // localize message if TAPi18n is avalable, refer to github.com/frozeman/meteor-global-notifications
+        if(this.title && this.title.indexOf('i18n:') !== -1 && typeof TAPi18n !== 'undefined')
+            this.title = TAPi18n.__(this.title.replace('i18n:',''));
+        if(this.message && this.message.indexOf('i18n:') !== -1 && typeof TAPi18n !== 'undefined')
+            this.message = TAPi18n.__(this.message.replace('i18n:',''));
         notification.title = title;
         notification.message = message;
         notification.type = options.type;
